@@ -5,6 +5,7 @@ import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 
+import java.util.List;
 import java.util.Set;
 
 /*
@@ -53,5 +54,5 @@ public class Product {
             CascadeType.PERSIST,
             CascadeType.REFRESH
     })
-    private Set<Image> image;
+    private List<Image> image;
 }

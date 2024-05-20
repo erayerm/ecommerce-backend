@@ -1,6 +1,10 @@
 package com.erayerm.ecommercebackend.dto;
 
+import com.erayerm.ecommercebackend.entity.Image;
+import jakarta.persistence.Column;
 import lombok.Data;
+
+import java.util.List;
 
 @Data
 public class ProductRequest {

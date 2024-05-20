@@ -10,4 +10,6 @@ public interface ProductService {
     public List<Product> getProductsByFilters(Long category, String filter, String sort, Integer limit, Integer offset);
     public Product saveProduct(ProductRequest productRequest);
     public ProductResponse convertToResponse(Product product);
-}
+    public Product findProductById(Long productId);
+
+    }
