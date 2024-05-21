@@ -1,5 +1,6 @@
 package com.erayerm.ecommercebackend.controller;
 
+import com.erayerm.ecommercebackend.converter.ProductConverter;
 import com.erayerm.ecommercebackend.dto.ProductRequest;
 import com.erayerm.ecommercebackend.dto.ProductResponse;
 import com.erayerm.ecommercebackend.entity.Product;
@@ -19,7 +20,7 @@ import java.util.List;
 public class ProductController {
     @Autowired
     private ProductService productService;
-
+    private final ProductConverter productConverter;
     @GetMapping("/")
     public ResponseEntity<List<ProductResponse>> getProductsByFilters(@RequestParam(required = false) Long category,
                                                                       @RequestParam(required = false) String filter,
@@ -28,14 +29,14 @@ public class ProductController {
                                                                       @RequestParam(required = false, defaultValue = "0") Integer offset){
         List<ProductResponse> productResponses = productService
                 .getProductsByFilters(category, filter, sort, limit, offset)
-                .stream().map(productService::convertToResponse).toList();
+                .stream().map(productConverter::convertToResponse).toList();
         return ResponseEntity.ok().body(productResponses);
     }
 
     @PostMapping("/")
     public ProductResponse createProduct(@RequestBody ProductRequest productRequest) {
         Product product = productService.saveProduct(productRequest);
-        return productService.convertToResponse(product);
+        return productConverter.convertToResponse(product);
     }
 
 
