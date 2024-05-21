@@ -1,5 +1,6 @@
 package com.erayerm.ecommercebackend.service;
 
+import com.erayerm.ecommercebackend.converter.ImageConverter;
 import com.erayerm.ecommercebackend.dto.*;
 import com.erayerm.ecommercebackend.entity.Category;
 import com.erayerm.ecommercebackend.entity.Image;
@@ -16,30 +17,14 @@ import java.util.stream.Collectors;
 @Service
 public class ImageServiceImpl implements ImageService {
     private ImageRepository imageRepository;
-    private ProductService productService;
+    private final ImageConverter imageConverter;
 
     public Set<ImageResponse> getImagesByProductId(Long productId){
         List<Image> imageList = imageRepository.findByProductId(productId);
-        return imageList.stream().map(this::convertToResponse).collect(Collectors.toSet());
+        return imageList.stream().map(imageConverter::convertToResponse).collect(Collectors.toSet());
     }
-
     public Image saveImage(ImageRequest imageRequest){
-        Image image = convertRequestToEntity(imageRequest);
+        Image image = imageConverter.convertRequestToEntity(imageRequest);
         return imageRepository.save(image);
     }
-    public ImageResponse convertToResponse(Image image) {
-        ImageResponse response = new ImageResponse();
-        response.setId(image.getId());
-        response.setUrl(image.getUrl());
-
-        return response;
-    }
-
-    private Image convertRequestToEntity(ImageRequest imageRequest) {
-        Image image = new Image();
-        image.setUrl(imageRequest.getUrl());
-        image.setProduct(productService.findProductById(imageRequest.getProductId()));
-        return image;
-    }
-
 }

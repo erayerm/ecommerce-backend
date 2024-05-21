@@ -11,6 +11,4 @@ import java.util.Set;
 public interface ImageService {
     public Set<ImageResponse> getImagesByProductId(Long productId);
     public Image saveImage(ImageRequest imageRequest);
-    public ImageResponse convertToResponse(Image image);
-
 }

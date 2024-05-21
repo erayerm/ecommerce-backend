@@ -1,5 +1,6 @@
 package com.erayerm.ecommercebackend.controller;
 
+import com.erayerm.ecommercebackend.converter.ImageConverter;
 import com.erayerm.ecommercebackend.dto.ImageRequest;
 import com.erayerm.ecommercebackend.dto.ImageResponse;
 import com.erayerm.ecommercebackend.dto.ProductRequest;
@@ -19,11 +20,12 @@ import org.springframework.web.bind.annotation.RestController;
 @RequestMapping("/images")
 public class ImageController {
     private ImageService imageService;
+    private final ImageConverter imageConverter;
 
     @PostMapping("/")
     public ImageResponse createImage(@RequestBody ImageRequest imageRequest) {
         Image image = imageService.saveImage(imageRequest);
-        return imageService.convertToResponse(image);
+        return imageConverter.convertToResponse(image);
     }
 
 }
