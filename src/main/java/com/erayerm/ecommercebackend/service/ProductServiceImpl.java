@@ -2,11 +2,13 @@ package com.erayerm.ecommercebackend.service;
 import com.erayerm.ecommercebackend.converter.ProductConverter;
 import com.erayerm.ecommercebackend.dto.*;
 import com.erayerm.ecommercebackend.entity.Product;
+import com.erayerm.ecommercebackend.exceptions.ProductException;
 import com.erayerm.ecommercebackend.repository.ProductRepository;
 import lombok.AllArgsConstructor;
 import org.springframework.data.domain.PageRequest;
 import org.springframework.data.domain.Pageable;
 
+import org.springframework.http.HttpStatus;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
@@ -29,10 +31,6 @@ public class ProductServiceImpl implements ProductService{
     }
     public Product findProductById(Long id){
         Optional<Product> productsOptional = productRepository.findById(id);
-        if (productsOptional.isPresent()) {
-            return productsOptional.get();
-        }
-        //throw exception
-        return null;
+        return productsOptional.orElseThrow(() -> new ProductException("Verilen ID'de Product bulunamadı: " + id, HttpStatus.BAD_REQUEST));
     }
 }

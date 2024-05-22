@@ -1,5 +1,6 @@
 package com.erayerm.ecommercebackend.entity;
 
+import com.erayerm.ecommercebackend.entity.user.User;
 import jakarta.persistence.*;
 import lombok.AllArgsConstructor;
 import lombok.Data;

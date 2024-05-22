@@ -39,5 +39,11 @@ public class ProductController {
         return productConverter.convertToResponse(product);
     }
 
+    @GetMapping("/{id}")
+    public ProductResponse getProductById(@PathVariable Long id){
+        Product product = productService.findProductById(id);
+        return productConverter.convertToResponse(product);
+    }
+
 
 }
