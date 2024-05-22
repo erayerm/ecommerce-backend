@@ -1,7 +1,7 @@
 package com.erayerm.ecommercebackend.dto;
 
 
-import com.erayerm.ecommercebackend.entity.Role;
+import com.erayerm.ecommercebackend.entity.user.Role;
 import lombok.Data;
 
 @Data

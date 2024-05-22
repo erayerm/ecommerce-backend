@@ -1,7 +1,7 @@
 package com.erayerm.ecommercebackend.converter;
 
 import com.erayerm.ecommercebackend.dto.*;
-import com.erayerm.ecommercebackend.entity.User;
+import com.erayerm.ecommercebackend.entity.user.User;
 import org.springframework.stereotype.Component;
 
 
