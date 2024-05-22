@@ -9,4 +9,6 @@ import java.util.List;
 public interface CategoryService {
     public Category saveCategory(CategoryRequest categoryRequest);
     public List<CategoryResponse> getAllCategories();
+    public Category findById(Long id);
+
 }

@@ -9,6 +9,7 @@ import lombok.AllArgsConstructor;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
+import java.util.Optional;
 import java.util.stream.Collectors;
 
 @AllArgsConstructor
@@ -26,5 +27,14 @@ public class CategoryServiceImpl implements CategoryService{
             //throw
         }
         return categories.stream().map(categoryConverter::convertToResponse).collect(Collectors.toList());
+    }
+
+    public Category findById(Long id) {
+        Optional<Category> categoryOptional=categoryRepository.findById(id);
+        if(categoryOptional.isPresent()){
+            return categoryOptional.get();
+        }
+        //throw;
+        return null;
     }
 }

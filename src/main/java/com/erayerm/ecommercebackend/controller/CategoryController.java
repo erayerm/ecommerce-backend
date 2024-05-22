@@ -29,6 +29,11 @@ public class CategoryController {
         return categoryService.getAllCategories();
     }
 
+    @GetMapping("/{id}")
+    public CategoryResponse getCategoryById(@PathVariable Long id){
+        return categoryConverter.convertToResponse(categoryService.findById(id));
+    }
+
     @PostMapping("/")
     public CategoryResponse createCategory(@RequestBody CategoryRequest categoryRequest) {
         Category category = categoryService.saveCategory(categoryRequest);

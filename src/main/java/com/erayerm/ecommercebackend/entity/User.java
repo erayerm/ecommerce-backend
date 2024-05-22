@@ -17,13 +17,14 @@ public class User {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
     private String name;
-    private String phone;
-    @Column(name = "tax_no")
-    private String taxNo;
-    @Column(name = "bank_account")
-    private String bankAccount;
+    private String email;
+    private String password;
 
-    @OneToOne(mappedBy = "user")
+    @ManyToOne
+    @JoinColumn(name = "role_id")
+    private Role role;
+
+    @OneToOne(mappedBy = "user", cascade = CascadeType.ALL)
     private Cart cart;
     @OneToMany(mappedBy = "user", cascade = CascadeType.ALL)
     private List<Address> addresses;

@@ -5,6 +5,8 @@ import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 
+import java.util.List;
+
 @NoArgsConstructor
 @AllArgsConstructor
 @Data
@@ -16,12 +18,6 @@ public class Role {
     private Long id;
     private String name;
     private String code;
+    @OneToMany(mappedBy = "role", cascade = {CascadeType.MERGE, CascadeType.PERSIST, CascadeType.DETACH, CascadeType.REFRESH})
+    private List<User> users;
 }
-
-/*
-     Data Format
-
-     Customer & Admin: { name, email, password, role_id }
-     Store: { name, email, password, role_id, store: { name, phone, tax_no, bank_account } }
-     NOTE! If you add an extra field, or change name of the field or there would be a missing field you can get an ERR from backend.
- */
