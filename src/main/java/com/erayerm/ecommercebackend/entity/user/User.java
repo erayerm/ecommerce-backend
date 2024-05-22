@@ -11,9 +11,7 @@ import lombok.NoArgsConstructor;
 import org.springframework.security.core.GrantedAuthority;
 import org.springframework.security.core.userdetails.UserDetails;
 
-import java.util.ArrayList;
-import java.util.Collection;
-import java.util.List;
+import java.util.*;
 
 @NoArgsConstructor
 @AllArgsConstructor
@@ -29,7 +27,6 @@ public class User implements UserDetails {
     private String email;
     private String password;
 
-
     @OneToOne(mappedBy = "user", cascade = CascadeType.ALL)
     private Cart cart;
     @OneToMany(mappedBy = "user", cascade = CascadeType.ALL)
@@ -37,20 +34,15 @@ public class User implements UserDetails {
     @OneToMany(mappedBy = "user", cascade = CascadeType.ALL)
     private List<Order> orders;
 
-    @ManyToMany
+    @ManyToMany(fetch = FetchType.EAGER)
     @JoinTable(name = "user_role", schema = "ecommerce",
-    joinColumns = @JoinColumn(name = "user_id"),
-    inverseJoinColumns = @JoinColumn(name = "role_id"))
-    private List<Role> authorities = new ArrayList<>();
-
-    @Override
-    public Collection<? extends GrantedAuthority> getAuthorities() {
-        return null;
-    }
+            joinColumns = @JoinColumn(name = "user_id"),
+            inverseJoinColumns = @JoinColumn(name = "role_id"))
+    private Set<Role> authorities = new HashSet<>();
 
     @Override
     public String getUsername() {
-        return null;
+        return email;
     }
 
     @Override

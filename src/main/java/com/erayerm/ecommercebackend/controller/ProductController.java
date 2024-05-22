@@ -17,6 +17,7 @@ import java.util.List;
 @RestController
 @AllArgsConstructor
 @RequestMapping("/products")
+@CrossOrigin("http://localhost:5173")
 public class ProductController {
     @Autowired
     private ProductService productService;

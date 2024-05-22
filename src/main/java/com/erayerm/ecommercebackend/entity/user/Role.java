@@ -14,13 +14,13 @@ import java.util.List;
 @Entity
 @Table(name = "role", schema = "ecommerce")
 public class Role implements GrantedAuthority {
+
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private Long id;
-    private String name;
-    private String code;
-    @Override
-    public String getAuthority() {
-        return name;
-    }
+    @Column(name = "id")
+    private long id;
+
+    @Column(name = "authority")
+    private String authority;
+
 }

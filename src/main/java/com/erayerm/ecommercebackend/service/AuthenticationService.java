@@ -5,18 +5,22 @@ import com.erayerm.ecommercebackend.entity.user.Role;
 import com.erayerm.ecommercebackend.entity.user.User;
 import com.erayerm.ecommercebackend.repository.RoleRepository;
 import com.erayerm.ecommercebackend.repository.UserRepository;
+import lombok.AllArgsConstructor;
+import lombok.NoArgsConstructor;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
 
 import java.util.ArrayList;
+import java.util.HashSet;
 import java.util.List;
+import java.util.Set;
 
 @Service
 public class AuthenticationService {
     private UserRepository userRepository;
     private RoleRepository roleRepository;
-    private final PasswordEncoder passwordEncoder;
+    private PasswordEncoder passwordEncoder;
 
     @Autowired
     public AuthenticationService(UserRepository userRepository, RoleRepository roleRepository,
@@ -28,9 +32,9 @@ public class AuthenticationService {
 
     public User register(String fullName, String email, String password){
         String encodedPassword = passwordEncoder.encode(password);
-        Role userRole = roleRepository.findByAuthority("USER").get();
+        Role userRole = roleRepository.findByAuthority("USER").orElseThrow(() -> new RuntimeException("Role not found"));
 
-        List<Role> roles = new ArrayList<>();
+        Set<Role> roles = new HashSet<>();
         roles.add(userRole);
 
         User user = new User();
