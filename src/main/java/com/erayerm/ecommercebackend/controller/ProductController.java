@@ -5,10 +5,12 @@ import com.erayerm.ecommercebackend.dto.ProductRequest;
 import com.erayerm.ecommercebackend.dto.ProductResponse;
 import com.erayerm.ecommercebackend.entity.Product;
 import com.erayerm.ecommercebackend.service.ProductService;
+import jakarta.transaction.Transactional;
 import lombok.AllArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
+import org.springframework.validation.annotation.Validated;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
@@ -34,7 +36,7 @@ public class ProductController {
     }
 
     @PostMapping("/")
-    public ProductResponse createProduct(@RequestBody ProductRequest productRequest) {
+    public ProductResponse createProduct(@Validated @RequestBody ProductRequest productRequest) {
         Product product = productService.saveProduct(productRequest);
         return productConverter.convertToResponse(product);
     }
