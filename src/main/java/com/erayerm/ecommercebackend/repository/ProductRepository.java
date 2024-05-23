@@ -9,7 +9,7 @@ import org.springframework.data.repository.query.Param;
 
 public interface ProductRepository extends JpaRepository<Product, Long> {
     @Query("SELECT p FROM Product p WHERE (:filter IS NULL OR p.name LIKE %:filter% OR p.description LIKE %:filter%) " +
-            "AND (:category IS NULL OR p.category = :category) " +
+            "AND (:category IS NULL OR p.category.id = :category) " +
             "ORDER BY " +
             "CASE WHEN :sort = 'price:asc' THEN p.price END ASC, " +
             "CASE WHEN :sort = 'price:desc' THEN p.price END DESC, " +
